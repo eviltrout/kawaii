@@ -1,0 +1,151 @@
+== What is Kawaii?
+
+Kawaii (Japanese for cute) is a web based rails console for Ruby on Rails
+applications.
+
+It is designed for people who spend all day with a script/console window
+open, typing in pieces of code and trying to analyze incredibly long
+strings for any kind of useful output.
+
+If you type in code that returns data sets, Kawaii will nicely format
+them in scrollable types.  You can also easily configure your own 
+Kawaii views for your own classes.
+
+It also supports saving snippets into an Amazon S3 bucket, so you can
+share them across instances of your application.
+
+
+== Installation
+
+1. Install the Kawaii generator
+
+If you want to generate Kawaii in multiple rails apps: 
+  Copy the kawaii directory to  ~/.rails/generators
+  
+To install for one rails app:
+  Copy the kawaii directory to your application's lib directory
+
+2. Generate Kawaii (make your application cute!)
+
+Just run:
+script/generate kawaii
+
+3. Configure Kawaii
+
+Edit the file config/initializers/kawaii.rb. 
+
+Put a suitable password instead of CHANGE_ME.
+
+If you wish to use Amazon S3 as a store for your snippets,
+please add in your key and bucket names. Note that you will
+also need to install the Amazon S3 rubygem:
+
+http://amazon.rubyforge.org/
+
+4. Restart your application, and open a browser window to 
+http://localhost:3000/kawaii
+
+
+== An important note about security
+
+Kawaii is really just "eval."  That means that someone with access
+to your Kawaii console could seriously damage your server.
+
+You are expected to pick a suitable password for your Kawaii 
+installation. Additionally, feel free to drop in your own 
+authentication in the kawaii controller, it should be easy enough :)
+
+Also, please set up HTTPS so you aren't sending plain text
+passwords that someone can sniff.
+
+Finally, consider not running Kawaii on your production systems.
+It's still immature software and it could represent a considerable
+security risk.
+
+
+== How to create your own Kawaii views of your classes
+
+Kawaii includes some default views, for Arrays of ActiveRecord
+objects (such as returned by find(:all)) and for viewing 
+schemas by simply evaluating the ActiveRecord class itself.
+
+Kawaii looks for a method, too_cute, in your classes, when it does
+its rendering. If one is not found, it calls .inspect on your class
+and brings that back as a string.
+
+too_cute needs to return a hash with a :type key, that can currently
+be set to either 'string' or 'grid'.
+
+== String Example == 
+
+I think this example speaks for itself:
+
+class Person
+
+  attr_accessor :name
+
+  def initialize(name)
+    @name = name
+  end
+  
+  def too_cute
+    {:type => 'string', :string => @name}
+  end
+end
+
+
+== Grid Example ==
+
+When you want to format a grid, you need to return a list of columns
+as well:
+
+class Persons
+  
+  def people
+    persons = []
+    persons << {:name => 'Robin'}
+    persons << {:name => 'Jason'}
+    persons << {:name => 'Mike'}
+    persons
+  end
+  
+  def too_cute
+    {:type => 'grid', 
+     :columns => [{:key => 'name'}]},
+     :data => people}
+  end  
+end
+
+
+== About the Author
+
+Kawaii was created by Evil Trout (a.k.a Robin Ward), the creator 
+of the browser-based MMO Forumwarz, because he was sick of poorly 
+formatted strings in his script/consoles.
+
+He can be reached at eviltrout@forumwarz.com
+
+
+== License
+
+The MIT License
+
+Copyright (c) 2008 Robin Ward
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
