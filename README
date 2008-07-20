@@ -1,6 +1,6 @@
-== What is Kawaii?
+== What is Kawaii? == 
 
-Kawaii (Japanese for cute) is a web based rails console for Ruby on Rails
+Kawaii (Japanese for cute) is a web based console for Ruby on Rails
 applications.
 
 It is designed for people who spend all day with a script/console window
@@ -15,7 +15,7 @@ It also supports saving snippets into an Amazon S3 bucket, so you can
 share them across instances of your application.
 
 
-== Installation
+== Installation == 
 
 1. Install the Kawaii generator
 
@@ -46,7 +46,7 @@ http://amazon.rubyforge.org/
 http://localhost:3000/kawaii
 
 
-== An important note about security
+== An important note about security ==
 
 Kawaii is really just "eval."  That means that someone with access
 to your Kawaii console could seriously damage your server.
@@ -63,7 +63,7 @@ It's still immature software and it could represent a considerable
 security risk.
 
 
-== How to create your own Kawaii views of your classes
+== How to create your own Kawaii views of your classes ==
 
 Kawaii includes some default views, for Arrays of ActiveRecord
 objects (such as returned by find(:all)) and for viewing 
@@ -117,7 +117,7 @@ class Persons
 end
 
 
-== About the Author
+== About the Author ==
 
 Kawaii was created by Evil Trout (a.k.a Robin Ward), the creator 
 of the browser-based MMO Forumwarz, because he was sick of poorly 
@@ -126,7 +126,7 @@ formatted strings in his script/consoles.
 He can be reached at eviltrout@forumwarz.com
 
 
-== License
+== License ==
 
 The MIT License
 
