@@ -1,0 +1,14 @@
+<%= close_button 'results' %>
+
+<%- unless @error_msg.blank? -%>
+	<h1>Error</h1>
+	
+	<pre><%= h(@error_msg) %></pre>
+	
+<%- else -%>
+	<h1>Results</h1>
+	
+	<%= format_object(@result) %>
+	
+		
+<%- end -%>

@@ -1,0 +1,14 @@
+
+<div id="snippets_container">
+	<h1 class="Saving Snippet" class="loading" id="saving_snippet" style="display:none">Saving Snippet...</h1>
+	<div id="snippets" style="display:none">
+		<h1 class="loading">Loading Snippets</h1>
+	</div>
+</div>
+
+<div id="kawaii_content">
+	<div id="new_tab"><%= button_to_function 'New Tab', 'Kawaii.add_tab()'%></div>	
+	<div id="tab_container">
+		<div id="console_tabs" class="yui-navset"></div>
+	</div>
+</div>

@@ -1,0 +1,7 @@
+<table>
+	<%- records.each do |row| -%>
+		<tr class="<%= cycle('even', 'odd') %>">
+			<%= render :partial => 'elements', :locals => {:elements => row}%>
+		</tr>
+	<%- end -%>
+</table>

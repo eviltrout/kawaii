@@ -1,0 +1,33 @@
+<%- if model %>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Limit</th>
+      <th>Null</th>
+      <th>Default</th>
+      <th>Precision</th>
+      <th>Scale</th>
+    </tr>      
+  <%- model.columns.each do |c| %>
+    <tr class="<%= cycle('even', 'odd') %><%- if c.primary -%> primary<%- end -%>">
+        <td><%= c.name %></td>
+        <td><%= c.type %></td>
+        <td><%= c.limit %></td>
+        <td><%= c.null %></td>
+        <td><%= c.default %></td>
+        <td><%= c.precision %></td>
+        <td><%= c.scale %></td>        
+    </tr>
+  <%- end %>
+  </table>
+  
+<%- else %>
+  <div class='note'>
+    <p>Couldn't find a model for this table!</p>
+  
+    <p>It probably exists in the database but doesn't have a file in app/models yet!</p>
+  
+    <p>The filename would be: app/models/<%= @model_file_name%>.rb</p>  
+  </div>
+<%- end %>

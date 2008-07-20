@@ -1,0 +1,32 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title>Kawaii</title>
+
+	  <%= javascript_include_tag :defaults %>
+		<%= javascript_include_tag 'kawaii/yahoo-dom-event.js' %>
+		<%= javascript_include_tag 'kawaii/dragdrop-min.js' %>		
+		<%= javascript_include_tag 'kawaii/element-beta-min.js' %>
+		<%= javascript_include_tag 'kawaii/datasource-beta-min.js' %>		
+		<%= javascript_include_tag 'kawaii/datatable-beta-min.js' %>						
+		<%= javascript_include_tag 'kawaii/tabview-min.js' %>
+		<%= javascript_include_tag 'kawaii/kawaii.js' %>		
+
+		<%= stylesheet_link_tag 'kawaii/fonts-min.css' %>
+		<%= stylesheet_link_tag 'kawaii/tabview.css' %>
+		<%= stylesheet_link_tag 'kawaii/datatable.css' %>		
+		<%= stylesheet_link_tag 'kawaii/kawaii.css' %>
+		
+</head>
+
+<body class="yui-skin-sam kawaii">
+	
+
+<%= yield %>
+
+<br/><br/>
+
+</body>
+</html>
+

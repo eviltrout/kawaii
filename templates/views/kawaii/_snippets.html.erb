@@ -1,0 +1,16 @@
+<h1>Snippets</h1>
+
+<%- if @snippets.blank? %>
+	No snippets were found.
+<%- else -%>
+	<ul>
+		<%- @snippets.each do |s| -%>
+			<li>
+				<%= link_to_remote(h(s.key), :url => {:action => 'load_snippet', :id => s.key}) %>
+				<div class='controls'><%= link_to_remote("delete snippet", 
+																								 :url => {:action => 'delete_snippet', :id => s.key},
+																								 :confirm => "Are you sure you want to delete that snippet?")%></div>
+				</li>
+		<%- end -%>
+	</ul>
+<%- end%>

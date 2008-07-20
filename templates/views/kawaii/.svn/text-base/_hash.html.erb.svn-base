@@ -1,0 +1,8 @@
+<table>
+	<%- records.each do |k,v| -%>
+		<tr class="<%= cycle('even', 'odd') %>">
+			<td><%= format_unknown(k) %></td>
+			<%= render :partial => 'elements', :locals => {:elements => v}%>
+		</tr>
+	<%- end -%>
+</table>

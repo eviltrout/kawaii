@@ -1,0 +1,9 @@
+<% if elements.kind_of?(Hash) %>
+	<td><%= render :partial => 'hash', :locals => {:records => elements} %></td>
+<% elsif elements.kind_of?(Enumerable)%>
+	<%- elements.each do |col| %>
+		<td><%= format_object(col) %></td>
+	<%- end -%>
+<% else%>
+	<td><%= format_object(elements) %></td>
+<% end %>
