@@ -74,7 +74,7 @@ class Array
       break
     end
     
-    if all_activerecords
+    if all_activerecords and !empty?
       {:type => 'grid', 
        :columns => first.class.columns.collect {|c| {:key => c.name}},
        :data => self[0..MAX_ROWS_KAWAII]}
