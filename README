@@ -23,7 +23,8 @@ If you want to generate Kawaii in multiple rails apps:
   Copy the kawaii directory to  ~/.rails/generators
   
 To install for one rails app:
-  Copy the kawaii directory to your application's lib directory
+  Copy the kawaii directory to your application's lib/generators directory.
+  (You might have to create lib/generators yourself.)
 
 2. Generate Kawaii (make your application cute!)
 
