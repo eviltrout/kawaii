@@ -16,6 +16,7 @@ share them across instances of your application.
 
 
 == Installation == 
+(Note: If you are upgrading Kawaii, see the Upgrading section.)
 
 1. Install the Kawaii generator
 
@@ -48,6 +49,30 @@ please add in the following keys to the YAML file:
 
 4. Restart your application, and open a browser window to 
 http://localhost:3000/kawaii
+
+
+== Upgrading Kawaii ==
+
+Note for early adopters:
+If you installed the first version of Kawaii from GitHub, the best
+thing to do is to script/destroy kawaii of your old version, then
+install the new version by running script/generate kawaii. An easy
+way to tell if you have the first version is if your application
+is configured in config/initializers/kawaii.rb instead of
+config/kawaii.yml
+
+To everyone else:
+You can overwrite your generator installation with the current
+version of Kawaii in either ~/.rails/generators/kawaii or 
+lib/generators/kawaii
+
+Running script/generate kawaii should upgrade your application
+safely, although you will have to tell it to overwrite files.
+The generator is smart enough to not overwrite your kawaii.yml
+or lib/kawaii_authentication.rb, so your application specific
+settings should keep! 
+
+Restart your app and you're good to go!
 
 
 == An important note about security ==
