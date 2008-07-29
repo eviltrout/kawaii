@@ -15,6 +15,19 @@ It also supports saving snippets into an Amazon S3 bucket, so you can
 share them across instances of your application.
 
 
+== Requirements ==
+
+- Kawaii depends on prototype.js, which is installed by default with
+a Rails app. If you have removed them from your app, you will need
+to add them back for Kawaii to work properly.
+
+- If you want to store snippets on s3, you will need to install the
+aws/s3 gem first:
+
+  sudo gem install aws-s3
+  
+  
+
 == Installation == 
 (Note: If you are upgrading Kawaii, see the Upgrading section.)
 
