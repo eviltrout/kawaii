@@ -33,15 +33,18 @@ script/generate kawaii
 
 3. Configure Kawaii
 
-Edit the file config/initializers/kawaii.rb. 
+Edit the file config/kawaii.yml
 
 Put a suitable password instead of CHANGE_ME.
 
 If you wish to use Amazon S3 as a store for your snippets,
-please add in your key and bucket names. Note that you will
-also need to install the Amazon S3 rubygem:
+please add in the following keys to the YAML file:
 
-http://amazon.rubyforge.org/
+  access_key_id
+  secret_access_key
+  bucket_name
+  
+"bucket_name" is the location where the snippet files will be saved.
 
 4. Restart your application, and open a browser window to 
 http://localhost:3000/kawaii
@@ -54,7 +57,7 @@ to your Kawaii console could seriously damage your server.
 
 You are expected to pick a suitable password for your Kawaii 
 installation. Additionally, feel free to drop in your own 
-authentication in the kawaii controller, it should be easy enough :)
+authentication in the lib/kawaii_authentication.rb
 
 Also, please set up HTTPS so you aren't sending plain text
 passwords that someone can sniff.
@@ -73,6 +76,9 @@ schemas by simply evaluating the ActiveRecord class itself.
 Kawaii looks for a method, too_cute, in your classes, when it does
 its rendering. If one is not found, it calls .inspect on your class
 and brings that back as a string.
+
+When your application starts, Kawaii will automatically run all the
+scripts in lib/too_cute. 
 
 too_cute needs to return a hash with a :type key, that can currently
 be set to either 'string' or 'grid'.
