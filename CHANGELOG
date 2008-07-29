@@ -1,0 +1,10 @@
+What's new in Kawaii?
+
+July 29, 2008:
+
+- Moved around all sorts of files so that you can update Kawaii easier in the future. See README for upgrading instructions.
+- Configuration is now in a YAML file
+- Note about Prototype.js being required in the README
+- If your YAML doesn't have the snippets enabled option, it doesn't barf if you don't have the aws-s3 gem installed.
+- Added display support for Hash
+- Added empty array fix (thanks http://github.com/wwood) 
