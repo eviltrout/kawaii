@@ -8,10 +8,13 @@ module KawaiiAuthentication
   # to the latest version of Kawaii.
   #
   # If you wish to use your own filter-based authentication, just remove
-  # the contents of this method and add your filter to this mixin:
+  # the contents of this method and add your filter using the self.included
+  # method.
   #
   # example: 
-  #   before_filter :admin_login_required
+  #   def self.included(base)
+  #     base.before_filter :admin_login_required
+  #   end
   #
   def replaceable_authentication
     

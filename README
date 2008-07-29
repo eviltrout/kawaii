@@ -148,9 +148,9 @@ class Persons
   
   def people
     persons = []
-    persons << {:name => 'Robin'}
-    persons << {:name => 'Jason'}
-    persons << {:name => 'Mike'}
+    persons << {'name' => 'Robin'}
+    persons << {'name' => 'Jason'}
+    persons << {'name' => 'Mike'}
     persons
   end
   
