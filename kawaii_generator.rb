@@ -7,6 +7,20 @@ class KawaiiGenerator < Rails::Generator::Base
       # Initializer
       m.directory File.join('config/initializers')
       m.file "initializers/kawaii.rb", File.join('config/initializers', "kawaii.rb")
+
+      # Config
+      m.directory File.join('config')
+      m.file "config/kawaii.yml", File.join('config', "kawaii.yml"), :collision => :skip
+      
+      # Authentication
+      m.directory File.join('lib/too_cute')
+      m.file 'lib/kawaii_authentication.rb', File.join('lib', "kawaii_authentication.rb"), :collision => :skip
+      
+      # Too cute handlers
+      m.directory File.join('lib/too_cute')      
+      m.file 'lib/too_cute/activerecord_base.rb', File.join('lib/too_cute', "activerecord_base.rb")
+      m.file 'lib/too_cute/array.rb', File.join('lib/too_cute', "array.rb")
+      m.file 'lib/too_cute/object.rb', File.join('lib/too_cute', "object.rb")
       
       # Controllers
       m.directory File.join('app/controllers')
@@ -50,6 +64,8 @@ class KawaiiGenerator < Rails::Generator::Base
       m.file 'stylesheets/kawaii/sprite.png', File.join('public/stylesheets/kawaii', "sprite.png")            
       m.file 'stylesheets/kawaii/tabview.css', File.join('public/stylesheets/kawaii', "tabview.css")            
       m.file 'stylesheets/kawaii/transparent.gif', File.join('public/stylesheets/kawaii', "transparent.gif")
+      
+      # Too cute handlers
     end
     
   end

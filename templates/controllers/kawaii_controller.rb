@@ -1,4 +1,5 @@
 class KawaiiController < ApplicationController
+  include KawaiiAuthentication
   
   skip_before_filter :verify_authenticity_token
 
@@ -8,7 +9,7 @@ class KawaiiController < ApplicationController
   AVOID_TABLES = %w(schema_info)
 
   def index
-    @snippets_enabled = KAWAII_OPTIONS[:snippets_enabled]
+    @snippets_enabled = KAWAII_OPTIONS['snippets_enabled']
   end
   
   def snippets
@@ -78,29 +79,12 @@ class KawaiiController < ApplicationController
 
   private
 
-  def replaceable_authentication
-    
-    # Check to make sure it's configured to have a good password
-    if KAWAII_OPTIONS[:password] == "CHANGE_ME"
-      raise "Change the Kawaii password in /config/initializers/kawaii.rb please!" 
-    end
-    
-    session[:kawaii_password] = params[:kawaii][:password] if params[:kawaii]
-    unless session[:kawaii_password] == KAWAII_OPTIONS[:password]
-      redirect_to :controller => 'kawaii', :action => 'login'
-      return false
-    end
-
-    # We set this so we know to show the login link
-    @kawaii_authentication = true
-  end
-
   def bucket_name
-    KAWAII_OPTIONS[:bucket_name]
+    KAWAII_OPTIONS['bucket_name']
   end
   
   def get_bucket
-    if KAWAII_OPTIONS[:snippets_enabled]
+    if KAWAII_OPTIONS['snippets_enabled']
       begin
         @bucket = AWS::S3::Bucket.find(bucket_name)
       rescue AWS::S3::NoSuchBucket
