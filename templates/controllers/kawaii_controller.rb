@@ -48,13 +48,13 @@ class KawaiiController < ApplicationController
   end
   
   def query
-    result = nil
-    begin
-      result = eval(params[:query])
-    rescue Exception => ex
-      result = ex.to_s
-    end
+    # Perform the query
+    result = smart_eval(params[:query])
 
+    # This is in case we are evaluating an ActiveRecord association. It won't have
+    # the too_cute method unless we do this first.
+    result = result.to_ary if result.kind_of?(Array)
+    
     formatted = result.too_cute
     if formatted[:type] == "grid"
       schema = []
@@ -79,6 +79,18 @@ class KawaiiController < ApplicationController
 
   private
 
+  def smart_eval(str)
+    # If it starts with SELECT, let's try running it as SQL
+    if str =~ /\ASELECT(.+)FROM(.+)/i
+      conn = ActiveRecord::Base.connection
+      result = conn.db_too_cute(str)
+    else
+      eval(str)
+    end
+  rescue Exception => ex
+    ex.to_s
+  end
+  
   def bucket_name
     KAWAII_OPTIONS['bucket_name']
   end

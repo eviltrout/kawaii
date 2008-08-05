@@ -22,6 +22,7 @@ class KawaiiGenerator < Rails::Generator::Base
       m.file 'lib/too_cute/array.rb', File.join('lib/too_cute', "array.rb")
       m.file 'lib/too_cute/object.rb', File.join('lib/too_cute', "object.rb")
       m.file 'lib/too_cute/hash.rb', File.join('lib/too_cute', "hash.rb")
+      m.file 'lib/too_cute/sql_select.rb', File.join('lib/too_cute', "sql_select.rb")
       
       # Controllers
       m.directory File.join('app/controllers')

@@ -1,5 +1,16 @@
 What's new in Kawaii?
 
+August 5, 2008:
+
+- Fixed bug with proxy queries not being rendered correctly
+   e.g: User.find_by_name('robin').addresses didn't work before
+- Added support for rendering Arrays of Hashes
+- Added support for typing in SELECT SQL queries directly in the console and getting nice formatting!
+   e.g: select * from users where name = 'robin'
+   
+   Kawaii does this by checking if the first thing you type in is 'select' with a 'from' later on.
+   I don't think this should cause any collisions with actual ruby code, but let me know!
+
 July 29, 2008:
 
 - Moved around all sorts of files so that you can update Kawaii easier in the future. See README for upgrading instructions.
