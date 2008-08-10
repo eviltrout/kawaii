@@ -22,6 +22,7 @@ module ActiveRecord
   end
 end
 
+ActiveRecord::Base.require_mysql
 class Mysql
   class Result
     def too_cute
