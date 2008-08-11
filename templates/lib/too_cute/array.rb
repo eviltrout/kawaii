@@ -1,6 +1,4 @@
 class Array
-  
-  MAX_ROWS_KAWAII = 25
     
   def too_cute
     
@@ -34,14 +32,14 @@ class Array
       # If it's not an array of activerecords
       {:type => 'grid',
        :columns => [{:key => 'Value'}],
-       :data => self[0..MAX_ROWS_KAWAII].collect {|r| {'Value' => r.inspect} } }
+       :data => collect {|r| {'Value' => r.inspect} } }
     end
   end
   
   def build_grid(grid_columns)
     # Make our own hash, otherwise the json call will put "record_name" => values
     # instead of just the values we want for our column
-    data = self[0..MAX_ROWS_KAWAII].collect do |r|
+    data = collect do |r|
       row = {}
       grid_columns.each {|c| row[c[:key]] = r[c[:key]] }
       row

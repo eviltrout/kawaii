@@ -1,5 +1,12 @@
 What's new in Kawaii?
 
+August 11, 2008:
+
+- Client-side pagination is in place for the datatable, so you can return many results.
+- Keyboard Shortcut: Ctrl-Enter to execute a query
+- Strings are formatted better. 
+- Fixed: mysql defined prematurely (thanks http://github.com/oculardisaster)
+
 August 5, 2008:
 
 - Fixed bug with proxy queries not being rendered correctly

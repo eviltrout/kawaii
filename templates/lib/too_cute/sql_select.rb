@@ -4,7 +4,7 @@ module ActiveRecord
   module ConnectionAdapters
     class AbstractAdapter
       def db_too_cute(sql)
-        select_all(sql)[0..Array::MAX_ROWS_KAWAII]
+        select_all(sql)
       end
     end
   end
@@ -30,10 +30,7 @@ class Mysql
       fetch_fields.each {|f| columns << {:key => f.name}}
 
       data = []  
-      each_hash do |r| 
-        next if data.size >= Array::MAX_ROWS_KAWAII
-        data << r
-      end
+      each_hash {|r| data << r }
       
       {:type => 'grid', :columns => columns, :data => data}
     end

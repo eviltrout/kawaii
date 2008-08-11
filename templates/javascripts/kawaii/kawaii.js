@@ -33,7 +33,7 @@ Kawaii = {
     
     var query_id = "query_input_" + this.tab_number
     query_container.insert(new Element('div', {'class': 'text_area_container'}).insert(
-      new Element('textarea', {'id': query_id, 'onkeypress': "Kawaii.text_area_keypress(event);"}).update(value))
+      new Element('textarea', {'id': query_id, 'onkeypress': "Kawaii.text_area_keypress(event);", 'tab_number':this.tab_number}).update(value))
     )
 
     query_container.insert(new Element("input", 
@@ -41,6 +41,7 @@ Kawaii = {
                                          'value': 'Execute', 
                                          'class': 'execute',
                                          'onClick' : "Kawaii.execute(" + this.tab_number + "); return false;"}))
+    query_container.insert(new Element('span', {'class':'keyboard_shortcut'}).update("Ctrl-Enter"))
 
     if (this.snippets_enabled) {
      query_container.insert(new Element("input", 
@@ -105,17 +106,26 @@ Kawaii = {
   },
   
   show_grid : function (tab_number, columns, schema, data) {
-      this.myDataSource = new YAHOO.util.DataSource(data); 
-      this.myDataSource.responseType = YAHOO.util.DataSource.TYPE_JSARRAY; 
-      this.myDataSource.responseSchema = { 
-          fields: schema
-      }; 
+
+    // Let's use client side paging!
+    var oConfigs = { 
+            paginator: new YAHOO.widget.Paginator({rowsPerPage: 25}), 
+            scrollable: true,
+            width: "100%",
+            initialRequest: "results=504" 
+    };
+        
+    this.myDataSource = new YAHOO.util.DataSource(data); 
+    this.myDataSource.responseType = YAHOO.util.DataSource.TYPE_JSARRAY; 
+    this.myDataSource.responseSchema = { 
+        fields: schema
+    }; 
+  
+    winwidth=parseInt(document.all?document.body.clientwidth:window.innerwidth)
+    winHeight=parseInt(document.all?document.body.clientHeight:window.innerHeight)
     
-      winwidth=parseInt(document.all?document.body.clientwidth:window.innerwidth)
-      winHeight=parseInt(document.all?document.body.clientHeight:window.innerHeight)
-      
-      this.myDataTable = new YAHOO.widget.DataTable("results_" + tab_number, 
-              columns, this.myDataSource, {scrollable:true, width: "100%"});    
+    this.myDataTable = new YAHOO.widget.DataTable("results_" + tab_number, 
+            columns, this.myDataSource, oConfigs);    
     $('loading_results_' + tab_number).hide()              
   },
   
@@ -123,8 +133,10 @@ Kawaii = {
 
     var results_div = $('results_' + tab_number)
     
+    var formatted = string.replace(/\n/g, "<br/>").replace(/ /g, "&nbsp;")
+    
     results_div.update(new Element('div', {'class': 'text_container'}).update(
-      new Element('div', {'class':'result_text' + (this.wrap_results ? '' : ' avoid_wrap'), 'id': 'text_result_' + tab_number}).update(string))
+      new Element('div', {'class':'result_text' + (this.wrap_results ? '' : ' avoid_wrap'), 'id': 'text_result_' + tab_number}).update(formatted))
     )
     results_div.insert(new Element('input', {'type': 'checkbox', 
                                               'id': 'wrap_' + tab_number, 
@@ -144,23 +156,25 @@ Kawaii = {
     } else {
       $('text_result_' + tab_number).removeClassName('avoid_wrap')
     }
-    
-    
-/*    
-    this.wrap_results = !this.wrap_results
-    if (this.wrap_results)
-      $('text_result_' + tab_number).setAttribute('wrap', 'soft')
-    else
-      $('text_result_' + tab_number).setAttribute('wrap', 'off')
-*/      
   },
   
-  // Thanks: http://ajaxian.com/archives/handling-tabs-in-textareas
+  
   text_area_keypress : function (evt) {
     var t = evt.target;
     var ss = t.selectionStart;
     var se = t.selectionEnd;
 
+    var code;
+    if (evt.keyCode) code = evt.keyCode;
+    else if (evt.which) code = evt.which;
+    
+    // Ctrl+Return -> execute
+    if (code == 13 && evt.ctrlKey) {
+      this.execute(t.getAttribute('tab_number'))
+      return true
+    }
+    
+    // Thanks: http://ajaxian.com/archives/handling-tabs-in-textareas
     // Tab key - insert tab expansion
     if (evt.keyCode == 9) {
         evt.preventDefault();

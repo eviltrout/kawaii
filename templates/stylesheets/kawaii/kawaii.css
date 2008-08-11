@@ -143,3 +143,9 @@ textarea {
 h1 {
   font-size: 15px;
 }
+
+span.keyboard_shortcut {
+  font-size: 10px;
+  color: #777;
+  padding-left: 5px;
+}
