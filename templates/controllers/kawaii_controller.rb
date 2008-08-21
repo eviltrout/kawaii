@@ -81,7 +81,7 @@ class KawaiiController < ApplicationController
 
   def smart_eval(str)
     # If it starts with SELECT, let's try running it as SQL
-    if str =~ /\ASELECT(.+)FROM(.+)/i
+    if str =~ /\ASELECT(.+)FROM(.+)/im
       conn = ActiveRecord::Base.connection
       result = conn.db_too_cute(str)
     else
