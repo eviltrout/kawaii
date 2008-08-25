@@ -22,17 +22,24 @@ module ActiveRecord
   end
 end
 
-ActiveRecord::Base.require_mysql
-class Mysql
-  class Result
-    def too_cute
-      columns = []
-      fetch_fields.each {|f| columns << {:key => f.name}}
+begin
+  # We need mysql for the following code
+  if ActiveRecord::Base.respond_to?(:require_mysql)
+    ActiveRecord::Base.require_mysql
+    class Mysql
+      class Result
+        def too_cute
+          columns = []
+          fetch_fields.each {|f| columns << {:key => f.name}}
 
-      data = []  
-      each_hash {|r| data << r }
+          data = []  
+          each_hash {|r| data << r }
       
-      {:type => 'grid', :columns => columns, :data => data}
+          {:type => 'grid', :columns => columns, :data => data}
+        end
+      end
     end
   end
+rescue LoadError
+  # If we don't have MySQL, that's fine. Do nothing.
 end
