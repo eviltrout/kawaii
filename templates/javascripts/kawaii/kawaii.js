@@ -7,7 +7,6 @@ Kawaii = {
     this.tab_view = new YAHOO.widget.TabView('console_tabs');
     this.tab_number = 1
     this.wrap_results = true
-    this.add_tab()
     
     this.snippets_enabled = ($('snippets') != null)
     
@@ -16,6 +15,8 @@ Kawaii = {
       $('snippets').show()
       new Ajax.Request('/kawaii/snippets', {asynchronous:true, evalScripts:true})
     }
+
+    this.add_tab()
                           
   },
   

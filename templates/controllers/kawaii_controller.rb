@@ -23,9 +23,16 @@ class KawaiiController < ApplicationController
   def load_snippet
     get_bucket
     @snippet = @bucket[params[:id]]
-    
-    render :update do |page|
-      page.call 'Kawaii.add_tab', params[:id], @snippet.value
+    if @snippet
+      render :update do |page|
+        page.call 'Kawaii.add_tab', params[:id], @snippet.value
+      end
+    else
+      @snippets = @bucket.objects
+      render :update do |page|
+        page.alert 'The selected snippet could not be loaded'
+        page.replace_html 'snippets', :partial => 'snippets'
+      end
     end
   end
   
@@ -39,8 +46,13 @@ class KawaiiController < ApplicationController
   end
   
   def save_query
-    AWS::S3::S3Object.store(params[:snippet_name], params[:query], bucket_name)
+    if KAWAII_OPTIONS['snippet_storage'] == 'local'
+      KawaiiSnippet.create(:key => params[:snippet_name], :value => params[:query])
+    else
+      AWS::S3::S3Object.store(params[:snippet_name], params[:query], bucket_name)
+    end
     get_bucket
+    @snippets = @bucket.objects
     render :update do |page|
       page.replace_html 'snippets', :partial => 'snippets'
       page.hide 'saving_snippet'
@@ -97,10 +109,14 @@ class KawaiiController < ApplicationController
   
   def get_bucket
     if KAWAII_OPTIONS['snippets_enabled']
-      begin
-        @bucket = AWS::S3::Bucket.find(bucket_name)
-      rescue AWS::S3::NoSuchBucket
-        @bucket = AWS::S3::Bucket.create(bucket_name)
+      if KAWAII_OPTIONS['snippet_storage'] == 'local'
+        @bucket = KawaiiSnippets.new
+      else
+        begin
+          @bucket = AWS::S3::Bucket.find(bucket_name)
+        rescue AWS::S3::NoSuchBucket
+          @bucket = AWS::S3::Bucket.create(bucket_name)
+        end
       end
     end    
   end

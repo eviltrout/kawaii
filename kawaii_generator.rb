@@ -27,6 +27,12 @@ class KawaiiGenerator < Rails::Generator::Base
       # Controllers
       m.directory File.join('app/controllers')
       m.file 'controllers/kawaii_controller.rb', File.join('app/controllers', "kawaii_controller.rb")
+      
+      # Local Snippets
+      m.directory File.join('app/models')
+      m.file 'lib/kawaii_snippets.rb', File.join('lib', 'kawaii_snippets.rb')
+      m.file 'models/kawaii_snippet.rb', File.join('app/models', 'kawaii_snippet.rb')
+      m.migration_template 'migrations/create_kawaii_snippets.rb', 'db/migrate', {:migration_file_name => 'create_kawaii_snippets'}
 
       # Views
       m.directory File.join('app/views/kawaii')
@@ -68,8 +74,7 @@ class KawaiiGenerator < Rails::Generator::Base
       m.file 'stylesheets/kawaii/transparent.gif', File.join('public/stylesheets/kawaii', "transparent.gif")
       
       # Too cute handlers
-    end
-    
+    end    
   end
-  
+
 end

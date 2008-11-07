@@ -60,6 +60,13 @@ please add in the following keys to the YAML file:
   
 "bucket_name" is the location where the snippet files will be saved.
 
+If you wish to store your snippets locally, please add in the following
+to the YAML file
+
+  snippet_storage: local
+  
+** Don't forget to run the migration before accessing Kawaii **
+
 4. Restart your application, and open a browser window to 
 http://localhost:3000/kawaii
 

@@ -1,5 +1,9 @@
 What's new in Kawaii?
 
+November 7, 2008:
+- Fixed: bug that prevented the 'Save Snippet' button from appearing on the initial tab
+- Added ability to store snippets locally in an ActiveRecord model (KawaiiSnippet)
+
 August 11, 2008:
 
 - Client-side pagination is in place for the datatable, so you can return many results.
