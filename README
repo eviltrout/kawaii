@@ -60,14 +60,22 @@ please add in the following keys to the YAML file:
   
 "bucket_name" is the location where the snippet files will be saved.
 
+4. Configure Local Snippets
+
 If you wish to store your snippets locally, please add in the following
 to the YAML file
 
   snippet_storage: local
-  
-** Don't forget to run the migration before accessing Kawaii **
 
-4. Restart your application, and open a browser window to 
+Additionally, run the migration that was installed:
+
+rake db:migrate
+
+** If you don't wish to use local snippets, you should remove
+   the CreateKawaiiSnippets migration file from db/migrations 
+   otherwise you might end up with a table you don't want **
+
+5. Restart your application, and open a browser window to 
 http://localhost:3000/kawaii
 
 
