@@ -11,8 +11,8 @@ If you type in code that returns data sets, Kawaii will nicely format
 them in scrollable types.  You can also easily configure your own 
 Kawaii views for your own classes.
 
-It also supports saving snippets into an Amazon S3 bucket, so you can
-share them across instances of your application.
+It also supports saving snippets into local tables using ActiveRecord,
+or into an Amazon S3 bucket to share across instances of your application.
 
 
 == Requirements ==
