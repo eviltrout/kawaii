@@ -1,10 +1,12 @@
 class KawaiiController < ApplicationController
   include KawaiiAuthentication
-  
-  skip_before_filter :verify_authenticity_token
 
+  protect_from_forgery
+  
   # Note you can replace this with your own authentication easily  
   before_filter :replaceable_authentication, :except => :login
+  
+  verify :method => :post, :only => [:delete_snippet, :save_query, :query]
   
   AVOID_TABLES = %w(schema_info)
 

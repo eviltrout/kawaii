@@ -7,13 +7,14 @@ Kawaii = {
     this.tab_view = new YAHOO.widget.TabView('console_tabs');
     this.tab_number = 1
     this.wrap_results = true
+    this.authenticity_token = $('kawaii_content').getAttribute('authenticity_token')
     
     this.snippets_enabled = ($('snippets') != null)
     
     // Load our snippets if we have a div for them
     if (this.snippets_enabled) {
       $('snippets').show()
-      new Ajax.Request('/kawaii/snippets', {asynchronous:true, evalScripts:true})
+      new Ajax.Request('/kawaii/snippets', {parameters:'authenticity_token=' + encodeURIComponent(this.authenticity_token), asynchronous:true, evalScripts:true})
     }
 
     this.add_tab()
@@ -85,16 +86,18 @@ Kawaii = {
   },
   
   execute : function (tab_number) {
+    var authenticity_token = this.authenticity_token
     this.with_query(tab_number, function (query) {
       $('loading_results_' + tab_number).show()
       new Ajax.Request('/kawaii/query', 
                        {asynchronous:true, 
                         evalScripts:true, 
-                        parameters:{'query':query, 'tab_number': tab_number}})    
+                        parameters:{'query':query, 'tab_number': tab_number, 'authenticity_token': authenticity_token}})    
     })
   },
   
   save_query : function (tab_number) {
+    var authenticity_token = this.authenticity_token
     this.with_query(tab_number, function (query) {
       
       snippet_name = prompt("Type in a short name for the snippet")
@@ -102,7 +105,7 @@ Kawaii = {
       new Ajax.Request('/kawaii/save_query', 
                        {asynchronous:true, 
                         evalScripts:true, 
-                        parameters:{'query':query, 'tab_number': tab_number, 'snippet_name': snippet_name}})      
+                        parameters:{'query':query, 'tab_number': tab_number, 'snippet_name': snippet_name, 'authenticity_token': authenticity_token}})      
     })
   },
   

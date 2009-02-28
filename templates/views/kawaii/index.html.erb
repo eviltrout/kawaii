@@ -8,7 +8,7 @@
   </div>
 <%- end -%>
 
-<div id="kawaii_content">
+<div id="kawaii_content" authenticity_token="<%= form_authenticity_token %>">
 	<div id="new_tab"><%= button_to_function 'New Tab', 'Kawaii.add_tab()'%></div>	
 	<div id="tab_container">
 		<div id="console_tabs" class="yui-navset"></div>
