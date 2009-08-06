@@ -1,13 +1,5 @@
 class ActiveRecord::Base
-  def too_cute
-    kawaii_columns = [{:key => 'Column'}, {:key => 'Value'}]
-    data = []
-    self.class.columns.each do |col|
-      data << {"Column" => col.name, "Value" => self[col.name]}
-    end
-    
-    {:type => 'grid', :columns => kawaii_columns, :data => data }
-  end
+  include ActiveRecordBaseExtension
   
   # Return our schema
   def self.too_cute

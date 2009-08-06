@@ -18,6 +18,7 @@ class KawaiiGenerator < Rails::Generator::Base
       
       # Too cute handlers
       m.directory File.join('lib/too_cute')      
+      m.file 'lib/too_cute/active_record_base_extension.rb', File.join('lib/too_cute', "active_record_base_extension.rb")
       m.file 'lib/too_cute/activerecord_base.rb', File.join('lib/too_cute', "activerecord_base.rb")
       m.file 'lib/too_cute/array.rb', File.join('lib/too_cute', "array.rb")
       m.file 'lib/too_cute/object.rb', File.join('lib/too_cute', "object.rb")
