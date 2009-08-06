@@ -119,6 +119,13 @@ Kawaii = {
             initialRequest: "results=504" 
     };
         
+    // Escape the contents of the data
+    data.each(function (row) {
+      schema.each(function (col) {
+        if (row[col]) row[col] = row[col].toString().escapeHTML()
+      })
+    })
+    
     this.myDataSource = new YAHOO.util.DataSource(data); 
     this.myDataSource.responseType = YAHOO.util.DataSource.TYPE_JSARRAY; 
     this.myDataSource.responseSchema = { 
