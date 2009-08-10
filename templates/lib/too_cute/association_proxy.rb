@@ -1,4 +1,3 @@
 class ActiveRecord::Associations::AssociationProxy
-  include ActiveRecordBaseExtension
-  
+  include TooCute::ActiveRecordBaseExtension
 end

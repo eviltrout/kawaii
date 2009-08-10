@@ -1,5 +1,5 @@
 class ActiveRecord::Base
-  include ActiveRecordBaseExtension
+  include TooCute::ActiveRecordBaseExtension
   
   # Return our schema
   def self.too_cute
